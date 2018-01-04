@@ -117,31 +117,21 @@ function map_autogen_walls()
 	for column=1,127 do
 		for row=1,63 do
 			if mget(column,row)==sprite_clear then
-				u=map_get_cell_state(column,row-1)
-				d=map_get_cell_state(column,row+1)
-				l=map_get_cell_state(column-1,row)
-				r=map_get_cell_state(column+1,row)
-				ul=map_get_cell_state(column-1,row-1)
-				ur=map_get_cell_state(column+1,row-1)
-				dl=map_get_cell_state(column-1,row+1)
-				dr=map_get_cell_state(column+1,row+1)
-				
 				val=0
-				if (ul==cell_floor) val+=1
-				if (u==cell_floor) val+=2
-				if (ur==cell_floor) val+=4
-				if (l==cell_floor) val+=8
-				if (r==cell_floor) val+=16
-				if (dl==cell_floor) val+=32
-				if (d==cell_floor) val+=64
-				if (dr==cell_floor) val+=128
+				if (map_get_cell_state(column-1,row-1)==cell_floor) val+=1
+				if (map_get_cell_state(column,row-1)==cell_floor) val+=2
+				if (map_get_cell_state(column+1,row-1)==cell_floor) val+=4
+				if (map_get_cell_state(column-1,row)==cell_floor) val+=8
+				if (map_get_cell_state(column+1,row)==cell_floor) val+=16
+				if (map_get_cell_state(column-1,row+1)==cell_floor) val+=32
+				if (map_get_cell_state(column,row+1)==cell_floor) val+=64
+				if (map_get_cell_state(column+1,row+1)==cell_floor) val+=128
 
 				for def in all(wall_building_data) do
 					for value in all(def[1]) do
 						if (val==value) mset(column,row,def[2])
 					end
 				end
-				-- croVss
 			end
 		end
 	end
