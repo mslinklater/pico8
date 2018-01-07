@@ -33,22 +33,22 @@ sprite_dbg_1=64
 sprite_dbg_2=65
 sprite_dbg_3=66
 sprite_dbg_4=67
-sprite_dbg_col1=127
-sprite_dbg_col2=126
-sprite_dbg_col3=125
-sprite_dbg_col4=124
-sprite_dbg_col5=123
-sprite_dbg_col6=122
-sprite_dbg_col7=121
-sprite_dbg_col8=120
-sprite_dbg_col9=119
-sprite_dbg_col10=118
-sprite_dbg_col11=117
-sprite_dbg_col12=116
-sprite_dbg_col13=115
-sprite_dbg_col14=114
-sprite_dbg_col15=113
-sprite_dbg_col16=112
+sprite_dbg_col0=127
+sprite_dbg_col1=126
+sprite_dbg_col2=125
+sprite_dbg_col3=124
+sprite_dbg_col4=123
+sprite_dbg_col5=122
+sprite_dbg_col6=121
+sprite_dbg_col7=120
+sprite_dbg_col8=119
+sprite_dbg_col9=118
+sprite_dbg_col10=117
+sprite_dbg_col11=116
+sprite_dbg_col12=115
+sprite_dbg_col13=114
+sprite_dbg_col14=113
+sprite_dbg_col15=112
 
 // ---------------------- input
 button_left = 0
@@ -93,27 +93,135 @@ map_main_yreflect=23
 --+---+---+---+
 
 wall_building_data = {
-{sprite_wall_horizontal,{2,3,6,7,64,66,96,98,99,102,103,192,195,198,199,224,226,227,230,231}},
-{sprite_wall_vertical,{8,9,16,20,24,28,29,40,41,56,57,57,57,57,57,60,61,144,148,152,153,156,157,184,185,188,189}},
-{sprite_wall_t,{221,248,249,253}},
-{sprite_wall_l,{118,119,214,246,247}},
-{sprite_wall_r,{111,203,235,239}},
-{sprite_wall_b,{62,159,190,191}},
-{sprite_wall_tr,{4,104,105,200,201,232,233,236,237}},
-{sprite_wall_rb,{11,15,42,43,46,47,128,175}},
-{sprite_wall_lb,{22,23,32,147,150,151}},
-{sprite_wall_tl,{1,80,116,208,212,240,244,245}},
-{sprite_wall_lrb,{35,38,39,131,134,135,160,163,166}},
-{sprite_wall_tlb,{21,33,52,145,149,176,177,180,181}},
-{sprite_wall_tlr,{5,65,97,100,101,193,196,197,225,228,229}},
-{sprite_wall_trb,{13,44,45,132,137,168,169}},
+{sprite_wall_horizontal,{2,3,6,7,64,66,67,70,71,96,98,99,102,103,192,194,195,198,199,224,226,227,230,231}},
+{sprite_wall_vertical,{8,9,16,20,24,25,28,29,40,41,56,57,57,57,57,57,60,61,144,148,152,153,156,157,184,185,188,189}},
+{sprite_wall_t,{221,248,249,252,253}},
+{sprite_wall_l,{115,118,119,211,214,215,243,246,247}},
+
+{sprite_wall_r,{75,79,106,107,110,111,203,235,238,239}},
+
+{sprite_wall_b,{31,62,63,159,187,190,191}},
+{sprite_wall_tr,{4,104,105,109,200,201,205,232,233,236,237}},
+{sprite_wall_rb,{11,14,15,42,43,46,47,128,139,143,171,175}},
+{sprite_wall_lb,{19,22,23,32,55,147,150,151,182,183}},
+{sprite_wall_tl,{1,80,84,112,116,208,209,212,213,240,241,244,245}},
+{sprite_wall_lrb,{35,38,39,130,131,134,135,160,162,163,166}},
+{sprite_wall_tlb,{17,21,33,48,52,53,145,149,176,177,180,181}},
+{sprite_wall_tlr,{5,65,68,97,100,101,193,196,197,225,228,229}},
+{sprite_wall_trb,{12,13,44,45,132,136,137,141,168,169,172,173}},
 {sprite_wall_cross,{36,37,129,133,161,164,165}},
-{sprite_wall_zero,{127,154,222,251,255}}
+{sprite_wall_zero,{127,154,222,251,254,255}}
+}
+
+wall_building_list = {
+--1-5
+sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8,
+--6-10
+sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
+--11-15
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--16-20
+sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
+--21-25
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical,
+--26-30
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
+--31-35
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--36-40
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
+--41-45
+sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--46-50
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--51-55
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--56-60
+sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
+--61-65
+sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal, sprite_dbg_col8,
+--66-70
+sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal,
+--71-75
+sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--76-80
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--81-85
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--86-90
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--91-95
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--96-100
+sprite_wall_horizontal, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8,
+--101-105
+sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8,
+--106-110
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--111-115
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l,
+--116-120
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l, sprite_wall_l, sprite_dbg_col8,
+--121-125
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--126-130
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--131-135
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--136-140
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--141-145
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_dbg_col8,
+--146-150
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8,
+--151-155
+sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8,
+--156-160
+sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--161-165
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--166-170
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--171-175
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--176-180
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--181-185
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical,
+--186-190
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
+--191-195
+sprite_dbg_col8, sprite_wall_horizontal, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal,
+--196-200
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8,
+--201-205
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--205-210
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--211-215
+sprite_wall_l, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l, sprite_wall_l,
+--216-220
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--221-225
+sprite_wall_t, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal, sprite_dbg_col8,
+--226-230
+sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal,
+--231-235
+sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--236-240
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+--241-245
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l, sprite_dbg_col8, sprite_dbg_col8,
+--246-250
+sprite_wall_l, sprite_wall_l, sprite_wall_t, sprite_wall_t, sprite_dbg_col8,
+--251-255
+sprite_dbg_col8, sprite_wall_t, sprite_wall_t, sprite_dbg_col8, sprite_dbg_col8,
 }
 
 -- map data
 map1 = {
 	{sprite_floor,2,2,4,4},
+	{sprite_player_start,3,3},
 	{sprite_floor,6,2,8,4},
 	{sprite_floor,2,6,4,8},
 	{sprite_floor,6,6,8,8},
@@ -170,11 +278,13 @@ function map_autogen_walls()
 				if (map_get_cell_state(column,row+1)==cell_floor) val+=64
 				if (map_get_cell_state(column+1,row+1)==cell_floor) val+=128
 
-				for def in all(wall_building_data) do
-					for value in all(def[2]) do
-						if (val==value) mset(column,row,def[1])
-					end
-				end
+				-- speed this up with a direct 255 entry table so no searching
+--				for def in all(wall_building_data) do
+--					for value in all(def[2]) do
+--						if (val==value) mset(column,row,def[1])
+--					end
+--				end
+				mset(column,row,wall_building_list[val])
 			end
 		end
 	end
@@ -189,21 +299,23 @@ function build_map(map_num)
 	map_set_area(map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax,sprite_clear)
 
 	map_data = maps[map_num]
---	for cell in all(map_data) do
---		cell_type=cell[1]
---		if cell_type==sprite_floor then
---			map_set_area(cell[2],cell[3],cell[4],cell[5],sprite_floor)
---			map_set_area(cell[2],map_main_ymax-cell[5],cell[4],map_main_ymax-cell[3],sprite_floor)
---		end
---	end
-	srand(4)
-	for i=1,80 do
-		top=rnd(20)+2
-		left=rnd(80)+2
-		height=rnd(6)
-		width=rnd(6)
-		map_set_area(left,top,left+width,top+height,sprite_floor)
+	for cell in all(map_data) do
+		cell_type=cell[1]
+		if cell_type==sprite_floor then
+			map_set_area(cell[2],cell[3],cell[4],cell[5],sprite_floor)
+			map_set_area(cell[2],map_main_ymax-cell[5],cell[4],map_main_ymax-cell[3],sprite_floor)
+		elseif cell_type==sprite_player_start then
+			mset(cell[2],cell[3],sprite_player_start)
+		end
 	end
+--	srand(17)
+--	for i=1,80 do
+--		top=rnd(20)+2
+--		left=rnd(80)+2
+--		height=rnd(6)
+--		width=rnd(6)
+--		map_set_area(left,top,left+width,top+height,sprite_floor)
+--	end
 	map_autogen_walls()
 	map_set_player_to_start()
 end
