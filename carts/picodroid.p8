@@ -68,19 +68,23 @@ player_x=0
 player_y=0
 player_vx=0
 player_vy=0
-player_max_speed=4
+player_max_speed=2
 player_damp=0.75
 
 cell_unknown=0
 cell_clear=1
 cell_floor=2
 
+coll_x1=8
+coll_y1=8
+coll_x2=32
+coll_y2=32
+
 -- map zones
 map_main_xmin=0
 map_main_xmax=95
 map_main_ymin=0
 map_main_ymax=47
-map_main_yreflect=23
 
 -- wall building data
 
@@ -92,130 +96,109 @@ map_main_yreflect=23
 --|032|064|128|
 --+---+---+---+
 
-wall_building_data = {
-{sprite_wall_horizontal,{2,3,6,7,64,66,67,70,71,96,98,99,102,103,192,194,195,198,199,224,226,227,230,231}},
-{sprite_wall_vertical,{8,9,16,20,24,25,28,29,40,41,56,57,57,57,57,57,60,61,144,148,152,153,156,157,184,185,188,189}},
-{sprite_wall_t,{221,248,249,252,253}},
-{sprite_wall_l,{115,118,119,211,214,215,243,246,247}},
-
-{sprite_wall_r,{75,79,106,107,110,111,203,235,238,239}},
-
-{sprite_wall_b,{31,62,63,159,187,190,191}},
-{sprite_wall_tr,{4,104,105,109,200,201,205,232,233,236,237}},
-{sprite_wall_rb,{11,14,15,42,43,46,47,128,139,143,171,175}},
-{sprite_wall_lb,{19,22,23,32,55,147,150,151,182,183}},
-{sprite_wall_tl,{1,80,84,112,116,208,209,212,213,240,241,244,245}},
-{sprite_wall_lrb,{35,38,39,130,131,134,135,160,162,163,166}},
-{sprite_wall_tlb,{17,21,33,48,52,53,145,149,176,177,180,181}},
-{sprite_wall_tlr,{5,65,68,97,100,101,193,196,197,225,228,229}},
-{sprite_wall_trb,{12,13,44,45,132,136,137,141,168,169,172,173}},
-{sprite_wall_cross,{36,37,129,133,161,164,165}},
-{sprite_wall_zero,{127,154,222,251,254,255}}
-}
-
 wall_building_list = {
 --1-5
-sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_tl, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tlr,
 --6-10
 sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
 --11-15
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_wall_rb, sprite_wall_rb,
 --16-20
-sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
+sprite_wall_vertical, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lb, sprite_wall_vertical,
 --21-25
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical,
+sprite_wall_tlb, sprite_wall_lb, sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical,
 --26-30
 sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
 --31-35
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_b, sprite_wall_lb, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lrb,
 --36-40
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
+sprite_wall_cross, sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_vertical,
 --41-45
-sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_vertical, sprite_wall_rb, sprite_wall_rb, sprite_wall_trb, sprite_wall_trb,
 --46-50
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_rb, sprite_wall_rb, sprite_wall_tlb, sprite_dbg_col8, sprite_dbg_col8,
 --51-55
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_dbg_col8, sprite_wall_tlb, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lb,
 --56-60
 sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
 --61-65
-sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal, sprite_dbg_col8,
+sprite_wall_vertical, sprite_wall_b, sprite_wall_b, sprite_wall_horizontal, sprite_wall_tlr,
 --66-70
-sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal,
+sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr, sprite_dbg_col8, sprite_wall_horizontal,
 --71-75
-sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_r,
 --76-80
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_r, sprite_wall_tl,
 --81-85
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tl, sprite_dbg_col8,
 --86-90
 sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
 --91-95
 sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
 --96-100
-sprite_wall_horizontal, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8,
+sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr,
 --101-105
-sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tr,
 --106-110
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_r, sprite_wall_r, sprite_dbg_col8, sprite_wall_tr, sprite_wall_r,
 --111-115
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l,
+sprite_wall_r, sprite_wall_tl, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l,
 --116-120
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l, sprite_wall_l, sprite_dbg_col8,
+sprite_wall_tl, sprite_dbg_col8, sprite_wall_l, sprite_wall_l, sprite_dbg_col8,
 --121-125
 sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
 --126-130
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_dbg_col8, sprite_wall_zero, sprite_wall_rb, sprite_wall_cross, sprite_wall_lrb,
 --131-135
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_lrb, sprite_wall_trb, sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb,
 --136-140
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb, sprite_dbg_col8,
 --141-145
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_dbg_col8,
+sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb, sprite_wall_vertical, sprite_wall_tlb,
 --146-150
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8,
+sprite_dbg_col8, sprite_wall_lb, sprite_wall_vertical, sprite_wall_tlb, sprite_wall_lb,
 --151-155
-sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical, sprite_wall_zero, sprite_dbg_col8,
 --156-160
-sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_wall_b, sprite_wall_lrb,
 --161-165
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_cross, sprite_wall_cross,
 --166-170
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_lrb, sprite_dbg_col8, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8,
 --171-175
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb,
 --176-180
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_tlb, sprite_wall_tlb, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tlb,
 --181-185
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical,
+sprite_wall_tlb, sprite_wall_lb, sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical,
 --186-190
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
+sprite_dbg_col8, sprite_wall_b, sprite_wall_vertical, sprite_wall_vertical, sprite_wall_b,
 --191-195
-sprite_dbg_col8, sprite_wall_horizontal, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal,
+sprite_wall_b, sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal,
 --196-200
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8,
+sprite_wall_tlr, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr,
 --201-205
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_tr, sprite_dbg_col8, sprite_wall_r, sprite_dbg_col8, sprite_wall_tr,
 --205-210
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tl, sprite_wall_tl, sprite_dbg_col8,
 --211-215
-sprite_wall_l, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l, sprite_wall_l,
+sprite_wall_l, sprite_wall_tl, sprite_wall_tl, sprite_wall_l, sprite_wall_l,
 --216-220
 sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
 --221-225
-sprite_wall_t, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal, sprite_dbg_col8,
+sprite_wall_t, sprite_wall_zero, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_tlr,
 --226-230
-sprite_wall_horizontal, sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_horizontal,
+sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_tlr, sprite_wall_horizontal,
 --231-235
-sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tr, sprite_dbg_col8, sprite_wall_r,
 --236-240
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_tr, sprite_wall_tr, sprite_wall_r, sprite_wall_r, sprite_wall_tl,
 --241-245
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_tl, sprite_dbg_col8, sprite_wall_l, sprite_wall_tl, sprite_wall_tl,
 --246-250
 sprite_wall_l, sprite_wall_l, sprite_wall_t, sprite_wall_t, sprite_dbg_col8,
 --251-255
-sprite_dbg_col8, sprite_wall_t, sprite_wall_t, sprite_dbg_col8, sprite_dbg_col8,
+sprite_wall_zero, sprite_wall_t, sprite_wall_t, sprite_wall_zero, sprite_wall_zero,
 }
 
 -- map data
@@ -278,12 +261,6 @@ function map_autogen_walls()
 				if (map_get_cell_state(column,row+1)==cell_floor) val+=64
 				if (map_get_cell_state(column+1,row+1)==cell_floor) val+=128
 
-				-- speed this up with a direct 255 entry table so no searching
---				for def in all(wall_building_data) do
---					for value in all(def[2]) do
---						if (val==value) mset(column,row,def[1])
---					end
---				end
 				mset(column,row,wall_building_list[val])
 			end
 		end
@@ -291,7 +268,14 @@ function map_autogen_walls()
 end
 
 function map_set_player_to_start()
-	
+	for row=2,map_main_xmax do
+		for column=2,map_main_ymax do
+			if mget(column,row)==sprite_player_start then
+				player_x=column*8
+				player_y=row*8
+			end
+		end
+	end
 end
 
 function build_map(map_num)
@@ -308,7 +292,7 @@ function build_map(map_num)
 			mset(cell[2],cell[3],sprite_player_start)
 		end
 	end
---	srand(17)
+--	srand(0)
 --	for i=1,80 do
 --		top=rnd(20)+2
 --		left=rnd(80)+2
@@ -323,6 +307,15 @@ end
 function _init()
 	cls()
 	build_map(1)
+end
+
+function do_wall_collision(x,y,vx,vy)
+	-- do left
+	coll_x1=(flr(x/8))*8
+	coll_y1=(flr(y/8))*8
+	coll_x2=(ceil((x+7)/8))*8
+	coll_y2=(ceil((y+7)/8))*8
+	return vx,vy
 end
 
 function update_input()
@@ -340,6 +333,9 @@ function update_input()
 	end
 	player_vx=max(min(player_vx,player_max_speed),-player_max_speed)
 	player_vy=max(min(player_vy,player_max_speed),-player_max_speed)
+
+	player_vx,player_vy=do_wall_collision(player_x,player_y,player_vx,player_vy)
+
 	player_x+=player_vx
 	player_y+=player_vy
 	player_vx=player_vx*player_damp
@@ -373,6 +369,10 @@ function _draw()
 	map(0,0,map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax)
 	draw_player()
 	draw_debug()
+	line(coll_x1,coll_y1,coll_x2,coll_y1,11)
+	line(coll_x2,coll_y1,coll_x2,coll_y2,11)
+	line(coll_x2,coll_y2,coll_x1,coll_y2,11)
+	line(coll_x1,coll_y2,coll_x1,coll_y1,11)
 end
 __gfx__
 00000000000000000066660000000000000000000000000000666600006666000000000000000000006666000000000000666600006666000066660000000000
