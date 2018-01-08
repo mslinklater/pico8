@@ -75,10 +75,8 @@ cell_unknown=0
 cell_clear=1
 cell_floor=2
 
-coll_x1=8
-coll_y1=8
-coll_x2=32
-coll_y2=32
+debug_0=0
+debug_1=0
 
 -- map zones
 map_main_xmin=0
@@ -164,7 +162,7 @@ sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_wall_b, spri
 --161-165
 sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_cross, sprite_wall_cross,
 --166-170
-sprite_wall_lrb, sprite_dbg_col8, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8,
+sprite_wall_lrb, sprite_wall_lrb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8,
 --171-175
 sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb,
 --176-180
@@ -203,9 +201,10 @@ sprite_wall_zero, sprite_wall_t, sprite_wall_t, sprite_wall_zero, sprite_wall_ze
 
 -- map data
 map1 = {
-	{sprite_floor,2,2,4,4},
+	{sprite_floor,2,2,8,4},
 	{sprite_player_start,3,3},
-	{sprite_floor,6,2,8,4},
+	{sprite_floor,7,3,7,7},
+	{sprite_floor,3,7,7,7},
 	{sprite_floor,2,6,4,8},
 	{sprite_floor,6,6,8,8},
 	{sprite_floor,10,16,12,18},
@@ -235,6 +234,10 @@ end
 
 function map_is_floor(x,y)
 	return fget(mget(x,y),flag_floor)
+end
+
+function map_is_collidable(x,y)
+	return fget(mget(x,y),flag_collidable)
 end
 
 function map_get_cell_state(x,y)
@@ -310,11 +313,58 @@ function _init()
 end
 
 function do_wall_collision(x,y,vx,vy)
-	-- do left
-	coll_x1=(flr(x/8))*8
-	coll_y1=(flr(y/8))*8
-	coll_x2=(ceil((x+7)/8))*8
-	coll_y2=(ceil((y+7)/8))*8
+	x2=x+vx
+	xc=x/8
+	xc2=x2/8
+	xcf=flr(xc)
+	xcf2=flr(xc2)
+
+	y2=y+vy
+	yc=y/8
+	yc2=y2/8
+	ycf=flr(yc)
+	ycf2=flr(yc2)
+
+	if vx<0 and xcf!=xcf2 then -- left
+		local para=(x-(xcf*8))/(x-x2)
+		local ypos=y-((y-y2)*para)	-- intersection at (xcf,tpos)
+		local ycell=flr(ypos/8)
+
+		if map_is_collidable(xcf2,ycell) then
+			vx=vx*para
+		end
+	end
+
+	if vx>0 and xcf!=xcf2 then -- right
+		local para=((xcf2*8)-x)/(x2-x)
+		local ypos=y-((y-y2)*para)
+		local ycell=flr(ypos/8)
+
+		para=0
+		if map_is_collidable(xcf2,ycell) then
+			vx=vx*para
+		end
+	end
+
+	if vy<0 and ycf!=ycf2 then -- up
+		local para=(y-(ycf*8))/(y-y2)
+		local xpos=x-((x-x2)*para)	-- intersection at (xcf,tpos)
+		local xcell=flr(xpos/8)
+
+		if map_is_collidable(xcell,ycf2) then
+			vy=vy*para
+		end
+	end
+	if vy>0 and ycf!=ycf2 then -- down
+		local para=((ycf2*8)-y)/(y2-y)
+		local xpos=x-((x-x2)*para)
+		local xcell=flr(xpos/8)
+
+		para=0
+		if map_is_collidable(xcell,ycf2) then
+			vy=vy*para
+		end
+	end
 	return vx,vy
 end
 
@@ -334,7 +384,10 @@ function update_input()
 	player_vx=max(min(player_vx,player_max_speed),-player_max_speed)
 	player_vy=max(min(player_vy,player_max_speed),-player_max_speed)
 
-	player_vx,player_vy=do_wall_collision(player_x,player_y,player_vx,player_vy)
+	player_vx,player_vy=do_wall_collision(player_x+1,player_y+1,player_vx,player_vy)
+	player_vx,player_vy=do_wall_collision(player_x+7,player_y+1,player_vx,player_vy)
+	player_vx,player_vy=do_wall_collision(player_x+1,player_y+7,player_vx,player_vy)
+	player_vx,player_vy=do_wall_collision(player_x+7,player_y+7,player_vx,player_vy)
 
 	player_x+=player_vx
 	player_y+=player_vy
@@ -357,6 +410,8 @@ end
 
 function draw_debug()
 	print("picodroid",camera_x,camera_y,7)
+	print(debug_0,camera_x+0,camera_y+10)
+	print(debug_1,camera_x+0,camera_y+20)
 end
 
 function draw_player()
@@ -369,10 +424,6 @@ function _draw()
 	map(0,0,map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax)
 	draw_player()
 	draw_debug()
-	line(coll_x1,coll_y1,coll_x2,coll_y1,11)
-	line(coll_x2,coll_y1,coll_x2,coll_y2,11)
-	line(coll_x2,coll_y2,coll_x1,coll_y2,11)
-	line(coll_x1,coll_y2,coll_x1,coll_y1,11)
 end
 __gfx__
 00000000000000000066660000000000000000000000000000666600006666000000000000000000006666000000000000666600006666000066660000000000
@@ -634,7 +685,7 @@ __label__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 __gff__
-0001010000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0001010101010101010101010101010000020100000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 __map__
 0000000000000000000805050505050b05090000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7d7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c7c
