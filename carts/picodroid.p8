@@ -27,8 +27,8 @@ sprite_wall_lrb = 11
 sprite_wall_tlb = 12
 sprite_wall_tlr = 13
 sprite_wall_trb = 14
-sprite_hdoor = 15
-sprite_vdoor = 16
+sprite_hdoor = 32
+sprite_vdoor = 48
 sprite_floor = 17
 sprite_wall_cross = 18
 sprite_player_start = 19
@@ -75,6 +75,7 @@ player_vx=0
 player_vy=0
 player_max_speed=2
 player_damp=0.75
+player_index=0
 
 cell_unknown=0
 cell_clear=1
@@ -100,108 +101,108 @@ map_main_ymax=47
 --+---+---+---+
 
 wall_building_list = {
---1-5
-sprite_wall_tl, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tlr,
---6-10
-sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
---11-15
-sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_wall_rb, sprite_wall_rb,
---16-20
-sprite_wall_vertical, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lb, sprite_wall_vertical,
---21-25
-sprite_wall_tlb, sprite_wall_lb, sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical,
---26-30
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
---31-35
-sprite_wall_b, sprite_wall_lb, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lrb,
---36-40
-sprite_wall_cross, sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_vertical,
---41-45
-sprite_wall_vertical, sprite_wall_rb, sprite_wall_rb, sprite_wall_trb, sprite_wall_trb,
---46-50
-sprite_wall_rb, sprite_wall_rb, sprite_wall_tlb, sprite_dbg_col8, sprite_dbg_col8,
---51-55
-sprite_dbg_col8, sprite_wall_tlb, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lb,
---56-60
-sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
---61-65
-sprite_wall_vertical, sprite_wall_b, sprite_wall_b, sprite_wall_horizontal, sprite_wall_tlr,
---66-70
-sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr, sprite_dbg_col8, sprite_wall_horizontal,
---71-75
-sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_r,
---76-80
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_r, sprite_wall_tl,
---81-85
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tl, sprite_dbg_col8,
---86-90
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
---91-95
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
---96-100
-sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr,
---101-105
-sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tr,
---106-110
-sprite_wall_r, sprite_wall_r, sprite_dbg_col8, sprite_wall_tr, sprite_wall_r,
---111-115
-sprite_wall_r, sprite_wall_tl, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l,
---116-120
-sprite_wall_tl, sprite_dbg_col8, sprite_wall_l, sprite_wall_l, sprite_dbg_col8,
---121-125
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
---126-130
-sprite_dbg_col8, sprite_wall_zero, sprite_wall_rb, sprite_wall_cross, sprite_wall_lrb,
---131-135
-sprite_wall_lrb, sprite_wall_trb, sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb,
---136-140
-sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb, sprite_dbg_col8,
---141-145
-sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb, sprite_wall_vertical, sprite_wall_tlb,
---146-150
-sprite_dbg_col8, sprite_wall_lb, sprite_wall_vertical, sprite_wall_tlb, sprite_wall_lb,
---151-155
-sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical, sprite_wall_zero, sprite_dbg_col8,
---156-160
-sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_wall_b, sprite_wall_lrb,
---161-165
-sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_cross, sprite_wall_cross,
---166-170
-sprite_wall_lrb, sprite_wall_lrb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8,
---171-175
-sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb,
---176-180
-sprite_wall_tlb, sprite_wall_tlb, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tlb,
---181-185
-sprite_wall_tlb, sprite_wall_lb, sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical,
---186-190
-sprite_dbg_col8, sprite_wall_b, sprite_wall_vertical, sprite_wall_vertical, sprite_wall_b,
---191-195
-sprite_wall_b, sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal,
---196-200
-sprite_wall_tlr, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr,
---201-205
-sprite_wall_tr, sprite_dbg_col8, sprite_wall_r, sprite_dbg_col8, sprite_wall_tr,
---205-210
-sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tl, sprite_wall_tl, sprite_dbg_col8,
---211-215
-sprite_wall_l, sprite_wall_tl, sprite_wall_tl, sprite_wall_l, sprite_wall_l,
---216-220
-sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
---221-225
-sprite_wall_t, sprite_wall_zero, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_tlr,
---226-230
-sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_tlr, sprite_wall_horizontal,
---231-235
-sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tr, sprite_dbg_col8, sprite_wall_r,
---236-240
-sprite_wall_tr, sprite_wall_tr, sprite_wall_r, sprite_wall_r, sprite_wall_tl,
---241-245
-sprite_wall_tl, sprite_dbg_col8, sprite_wall_l, sprite_wall_tl, sprite_wall_tl,
---246-250
-sprite_wall_l, sprite_wall_l, sprite_wall_t, sprite_wall_t, sprite_dbg_col8,
---251-255
-sprite_wall_zero, sprite_wall_t, sprite_wall_t, sprite_wall_zero, sprite_wall_zero,
+	--1-5
+	sprite_wall_tl, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tlr,
+	--6-10
+	sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
+	--11-15
+	sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_wall_rb, sprite_wall_rb,
+	--16-20
+	sprite_wall_vertical, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lb, sprite_wall_vertical,
+	--21-25
+	sprite_wall_tlb, sprite_wall_lb, sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical,
+	--26-30
+	sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8,
+	--31-35
+	sprite_wall_b, sprite_wall_lb, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lrb,
+	--36-40
+	sprite_wall_cross, sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_vertical,
+	--41-45
+	sprite_wall_vertical, sprite_wall_rb, sprite_wall_rb, sprite_wall_trb, sprite_wall_trb,
+	--46-50
+	sprite_wall_rb, sprite_wall_rb, sprite_wall_tlb, sprite_dbg_col8, sprite_dbg_col8,
+	--51-55
+	sprite_dbg_col8, sprite_wall_tlb, sprite_wall_tlb, sprite_dbg_col8, sprite_wall_lb,
+	--56-60
+	sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_vertical,
+	--61-65
+	sprite_wall_vertical, sprite_wall_b, sprite_wall_b, sprite_wall_horizontal, sprite_wall_tlr,
+	--66-70
+	sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr, sprite_dbg_col8, sprite_wall_horizontal,
+	--71-75
+	sprite_wall_horizontal, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_r,
+	--76-80
+	sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_r, sprite_wall_tl,
+	--81-85
+	sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tl, sprite_dbg_col8,
+	--86-90
+	sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+	--91-95
+	sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+	--96-100
+	sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr,
+	--101-105
+	sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tr,
+	--106-110
+	sprite_wall_r, sprite_wall_r, sprite_dbg_col8, sprite_wall_tr, sprite_wall_r,
+	--111-115
+	sprite_wall_r, sprite_wall_tl, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_l,
+	--116-120
+	sprite_wall_tl, sprite_dbg_col8, sprite_wall_l, sprite_wall_l, sprite_dbg_col8,
+	--121-125
+	sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+	--126-130
+	sprite_dbg_col8, sprite_wall_zero, sprite_wall_rb, sprite_wall_cross, sprite_wall_lrb,
+	--131-135
+	sprite_wall_lrb, sprite_wall_trb, sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb,
+	--136-140
+	sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb, sprite_dbg_col8,
+	--141-145
+	sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb, sprite_wall_vertical, sprite_wall_tlb,
+	--146-150
+	sprite_dbg_col8, sprite_wall_lb, sprite_wall_vertical, sprite_wall_tlb, sprite_wall_lb,
+	--151-155
+	sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical, sprite_wall_zero, sprite_dbg_col8,
+	--156-160
+	sprite_wall_vertical, sprite_wall_vertical, sprite_dbg_col8, sprite_wall_b, sprite_wall_lrb,
+	--161-165
+	sprite_wall_cross, sprite_wall_lrb, sprite_wall_lrb, sprite_wall_cross, sprite_wall_cross,
+	--166-170
+	sprite_wall_lrb, sprite_wall_lrb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8,
+	--171-175
+	sprite_wall_rb, sprite_wall_trb, sprite_wall_trb, sprite_dbg_col8, sprite_wall_rb,
+	--176-180
+	sprite_wall_tlb, sprite_wall_tlb, sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tlb,
+	--181-185
+	sprite_wall_tlb, sprite_wall_lb, sprite_wall_lb, sprite_wall_vertical, sprite_wall_vertical,
+	--186-190
+	sprite_dbg_col8, sprite_wall_b, sprite_wall_vertical, sprite_wall_vertical, sprite_wall_b,
+	--191-195
+	sprite_wall_b, sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal,
+	--196-200
+	sprite_wall_tlr, sprite_wall_tlr, sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tr,
+	--201-205
+	sprite_wall_tr, sprite_dbg_col8, sprite_wall_r, sprite_dbg_col8, sprite_wall_tr,
+	--205-210
+	sprite_dbg_col8, sprite_dbg_col8, sprite_wall_tl, sprite_wall_tl, sprite_dbg_col8,
+	--211-215
+	sprite_wall_l, sprite_wall_tl, sprite_wall_tl, sprite_wall_l, sprite_wall_l,
+	--216-220
+	sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8, sprite_dbg_col8,
+	--221-225
+	sprite_wall_t, sprite_wall_zero, sprite_dbg_col8, sprite_wall_horizontal, sprite_wall_tlr,
+	--226-230
+	sprite_wall_horizontal, sprite_wall_horizontal, sprite_wall_tlr, sprite_wall_tlr, sprite_wall_horizontal,
+	--231-235
+	sprite_wall_horizontal, sprite_wall_tr, sprite_wall_tr, sprite_dbg_col8, sprite_wall_r,
+	--236-240
+	sprite_wall_tr, sprite_wall_tr, sprite_wall_r, sprite_wall_r, sprite_wall_tl,
+	--241-245
+	sprite_wall_tl, sprite_dbg_col8, sprite_wall_l, sprite_wall_tl, sprite_wall_tl,
+	--246-250
+	sprite_wall_l, sprite_wall_l, sprite_wall_t, sprite_wall_t, sprite_dbg_col8,
+	--251-255
+	sprite_wall_zero, sprite_wall_t, sprite_wall_t, sprite_wall_zero, sprite_wall_zero,
 }
 
 -- map data
@@ -223,6 +224,40 @@ map2 = {}
 map3 = {}
 
 maps = {map1, map2, map3}
+
+-- Doors
+
+doors = {}
+door_closed=1
+door_open=2
+
+function add_door(col,row,spr)
+	door={}
+	door.col=col
+	door.row=row
+	door.x=col*8
+	door.y=row*8
+	door.type=spr
+	door.spr=spr
+	door.state=door_closed
+	printh("add_door" .. door.x .. "," .. door.y)
+	add(doors,door)
+	return #doors
+end
+
+-- Droids
+
+droids={}
+
+function add_droid(x,y,update)
+	printh("add_droid " .. x .. "," .. y)
+	droid={}
+	droid.x=x
+	droid.y=y
+	droid.update=update
+	add(droids,droid)
+	droid.index=#droids
+end
 
 phase_splash={}
 phase_ingame={}
@@ -272,6 +307,14 @@ function draw_ingame()
 	map(0,0,map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax)
 	draw_player()
 	draw_debug()
+	-- draw doors
+	for door in all(doors) do
+		if door.state==door_open then
+			mset(door.col,door.row,sprite_floor)
+		else
+			mset(door.col,door.row,door.spr)
+		end
+	end
 end
 
 function update_ingame()
@@ -279,6 +322,22 @@ function update_ingame()
 	update_camera()	
 	if btnp(5) then
 		set_current_phase(phase_splash)
+	end
+	-- open doors
+	droids[1].x=player_x
+	droids[1].y=player_y
+	for door in all(doors) do
+		door.state=door_closed
+	end
+	for droid in all(droids) do
+		for door in all(doors) do
+			dx=droid.x-door.x
+			dy=droid.y-door.y
+			distsqr=dx*dx+dy*dy
+			if distsqr < 500 then
+				door.state=door_open
+			end
+		end
 	end
 end
 
@@ -288,6 +347,17 @@ end
 
 function enter_ingame()
 	printh("enter_ingame")
+	-- go through all the map data and setup the dynamic object stuff
+	doors={}
+	droids={}
+	build_map(1)
+	for map in all(maps) do
+		for item in all(map) do
+			if item[1] == sprite_hdoor or item[1] == sprite_vdoor then
+				add_door(item[2],item[3],item[1])
+			end
+		end
+	end
 end
 
 function exit_ingame()
@@ -299,6 +369,14 @@ phase_ingame.update=update_ingame
 phase_ingame.init=init_ingame
 phase_ingame.enter=enter_ingame
 phase_ingame.exit=exit_ingame
+
+-------------
+
+function update_player()
+	mydroid=droids[player_index]
+	mydroid.x=player_x
+	mydroid.y=player_y
+end
 
 -------------
 
@@ -361,6 +439,7 @@ function map_set_player_to_start()
 			end
 		end
 	end
+	player_index=add_droid(player_x,player_y,update_player)
 end
 
 function build_map(map_num)
@@ -378,14 +457,6 @@ function build_map(map_num)
 			mset(cell[2],cell[3],cell[1])
 		end
 	end
---	srand(0)
---	for i=1,80 do
---		top=rnd(20)+2
---		left=rnd(80)+2
---		height=rnd(6)
---		width=rnd(6)
---		map_set_area(left,top,left+width,top+height,sprite_floor)
---	end
 	map_autogen_walls()
 	map_set_player_to_start()
 end
@@ -405,7 +476,6 @@ function _init()
 	phase_splash.init()
 	phase_ingame.init()
 	set_current_phase(phase_splash)
-	build_map(1)
 end
 
 function do_wall_collision(x,y,vx,vy)
@@ -505,11 +575,7 @@ function _update()
 end
 
 function draw_debug()
-	local c=7
---	if toggle_each_frame then
---		c=7
---	end
-	print(stat(0),camera_x,camera_y,c)
+	print("picodroid ",camera_x,camera_y,7)
 end
 
 function draw_player()
