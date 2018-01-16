@@ -5,6 +5,7 @@ __lua__
 
 toggle_each_frame=true
 phase_current = nil
+floor_current=1
 
 // --------------- sprite flags
 flag_collidable = 0
@@ -205,69 +206,58 @@ wall_building_list = {
 	sprite_wall_zero, sprite_wall_t, sprite_wall_t, sprite_wall_zero, sprite_wall_zero,
 }
 
--- map data
-map1 = {
-	{sprite_floor,2,22,7,24},
-	{sprite_floor,9,21,13,25},
-	{sprite_floor,10,17,14,19},
-	{sprite_floor,15,17,17,20},
-	{sprite_floor,15,22,17,24},
-	{sprite_vdoor,8,23},
-	{sprite_hdoor,12,20},
-	{sprite_vdoor,14,23},
-	{sprite_floor,19,21,19,25},
-	{sprite_floor,19,15,26,19},
-	{sprite_floor,28,15,29,19},
-	{sprite_floor,21,21,29,25},
-	{sprite_vdoor,18,23},
-	{sprite_vdoor,20,23},
-	{sprite_hdoor,19,20},
-	{sprite_vdoor,27,17},
-	{sprite_vdoor,30,22},
-	{sprite_vdoor,30,24},
-	{sprite_floor,31,16,33,22},
-	{sprite_floor,34,16,49,17},
-	{sprite_floor,35,19,48,27},
-	{sprite_floor,50,16,52,20},
-	{sprite_floor,50,22,52,24},
-	{sprite_vdoor,34,21},
-	{sprite_hdoor,51,21},
-	{sprite_vdoor,49,23},
-	{sprite_vdoor,53,23},
-	{sprite_floor,32,12,32,14},
-	{sprite_hdoor,32,15},
-	{sprite_floor,34,12,34,14},
-	{sprite_hdoor,34,15},
-	{sprite_floor,36,12,36,14},
-	{sprite_hdoor,36,15},
-	{sprite_floor,38,12,38,14},
-	{sprite_hdoor,38,15},
-	{sprite_floor,40,12,40,14},
-	{sprite_hdoor,40,15},
-	{sprite_floor,54,20,58,26},
-	{sprite_floor,54,11,58,18},
-	{sprite_floor,59,11,69,13},
-	{sprite_floor,42,12,44,14},
-	{sprite_hdoor,43,15},
-	{sprite_floor,46,12,48,14},
-	{sprite_hdoor,47,15},
-	{sprite_floor,50,12,52,14},
-	{sprite_hdoor,51,15},
-	{sprite_hdoor,56,19},
-	{sprite_floor,60,22,67,24},
-	{sprite_vdoor,59,23},
-	{sprite_floor,60,15,67,20},
-	{sprite_hdoor,61,14},
-	{sprite_hdoor,68,14},
-	{sprite_floor,69,19,77,27},
-	{sprite_floor,68,15,73,17},
-	{sprite_vdoor,68,23},
-	{sprite_player_start,3,23}
-}
-map2 = {}
-map3 = {}
+floor1 = [[
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+    ........                                                                                   
+    .S......                                                                                   
+    ........                                                                                   
+       h  h    ..                                                                              
+      ....... ....                                                                             
+      .......v....                                                                             
+      .......  ..                                                                              
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+]]
 
-maps = {map1, map2, map3}
+maps = {floor1, map2, map3}
 
 -- doors
 
@@ -422,13 +412,11 @@ function enter_ingame()
 	doors={}
 	droids={}
 	build_map(1)
-	for map in all(maps) do
-		for item in all(map) do
-			if item[1] == sprite_hdoor or item[1] == sprite_vdoor then
-				add_door(item[2],item[3],item[1])
-				if item[3]!=map_main_ymax-item[3] then
-					add_door(item[2],map_main_ymax-item[3],item[1])
-				end
+	for col=0,96 do
+		for row=0,48 do
+			cell=mget(col,row)
+			if cell==sprite_hdoor or cell==sprite_vdoor then
+				add_door(col,row,cell)
 			end
 		end
 	end
@@ -516,26 +504,24 @@ function map_set_player_to_start()
 	player_index=add_droid(player_x,player_y,update_player)
 end
 
+map_to_sprite={
+	["."]=sprite_floor,
+	["S"]=sprite_player_start,
+	["v"]=sprite_vdoor,
+	["h"]=sprite_hdoor,
+}
+
 function build_map(map_num)
 	-- clear the map
 	map_set_area(map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax,sprite_clear)
-
 	map_data = maps[map_num]
-	for cell in all(map_data) do
-		cell_type=cell[1]
-		if cell_type==sprite_floor then
-			map_set_area(cell[2],cell[3],cell[4],cell[5],sprite_floor)
-			-- and mirrored
-			map_set_area(cell[2],map_main_ymax-cell[5],cell[4],map_main_ymax-cell[3],sprite_floor)
-		elseif cell_type==sprite_hdoor or cell_type==sprite_vdoor then
-			-- doors are mirrored too
-			mset(cell[2],cell[3],cell_type)
-			mset(cell[2],map_main_ymax-cell[3],cell_type)
-		else
-			-- all single size blocks are just placed
-			mset(cell[2],cell[3],cell_type)
-		end
+	for i=1,#map_data do
+		local cell=sub(map_data,i,i)
+		icol=i%96
+		irow=flr(i/96)
+		mset(icol,irow,map_to_sprite[cell])
 	end
+
 	map_autogen_walls()
 	map_set_player_to_start()
 end
