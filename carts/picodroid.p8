@@ -215,11 +215,11 @@ floor1 = [[
     ........                                                                                   
     .S......                                                                                   
     ........                                                                                   
-       h  h    ..                                                                              
-      ....... ....                                                                             
-      .......v....                                                                             
-      .......  ..                                                                              
-                                                                                               
+       h  h      ....                                                                          
+      .......   ......                                                                         
+      ........v.......                                                                         
+      .......   ......                                                                         
+                 ....                                                                          
                                                                                                
                                                                                                
                                                                                                
@@ -256,14 +256,69 @@ floor1 = [[
                                                                                                
                                                                                                
 ]]
+floor2 = [[
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+         .....                                                                                 
+         .....           ..............                                                        
+         ..S........v..................                                                        
+         .....           ..............                                                        
+         .....            h    h    h                                                          
+                         .... .... ....                                                        
+                         .... .... ....                                                        
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+]]
 
-maps = {floor1, map2, map3}
+maps = {floor1, floor2}
 
 -- doors
 
 doors = {}
 door_closed=1
 door_open=2
+
+function clear_doors()
+	printh("clear_doors")
+	doors = {}
+end
 
 function add_door(col,row,spr)
 	door={}
@@ -274,7 +329,6 @@ function add_door(col,row,spr)
 	door.type=spr
 	door.spr=spr
 	door.state=door_closed
-	printh("add_door" .. door.x .. "," .. door.y)
 	add(doors,door)
 	return #doors
 end
@@ -283,14 +337,16 @@ end
 
 droids={}
 
-function add_droid(x,y,update)
-	printh("add_droid " .. x .. "," .. y)
+function add_droid(x,y,floor,update)
+	--printh("add_droid " .. x .. "," .. y)
 	droid={}
 	droid.x=x
 	droid.y=y
+	droid.floor=floor
 	droid.update=update
 	add(droids,droid)
 	droid.index=#droids
+	return #droids
 end
 
 phase_splash={}
@@ -341,7 +397,9 @@ function draw_ingame()
 	map(0,0,map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax)
 	draw_player()
 	draw_debug()
+
 	-- draw doors
+	printh("Num doors " .. #doors)
 	for door in all(doors) do
 		if door.state==door_open then
 			mset(door.col,door.row,sprite_floor)
@@ -384,9 +442,22 @@ function update_ingame()
 		set_current_phase(phase_splash)
 	end
 
+	if btnp(4) then
+		new_floor=floor_current+1
+		if new_floor>#maps then
+			new_floor = 1
+		end
+		set_current_floor(new_floor)
+	end
+
+	-- update droids
+	for droid in all(droids) do
+		if droid.floor==floor_current then
+			droid.update()
+		end
+	end
+
 	-- open doors
-	droids[1].x=player_x
-	droids[1].y=player_y
 	for door in all(doors) do
 		door.state=door_closed
 	end
@@ -409,9 +480,28 @@ end
 function enter_ingame()
 	printh("enter_ingame")
 	-- go through all the map data and setup the dynamic object stuff
-	doors={}
 	droids={}
-	build_map(1)
+	enter_floor(1)
+end
+
+function exit_ingame()
+	printh("exit_ingame")
+end
+
+function exit_floor()
+	printh("exit_floor")
+	doors={}
+	for col=0,96 do
+		for row=0,48 do
+			mset(col,row,0)
+		end
+	end
+	-- clear doors
+end
+
+function enter_floor(new_floor_number)
+	printh("enter_floor")
+	build_map(new_floor_number)
 	for col=0,96 do
 		for row=0,48 do
 			cell=mget(col,row)
@@ -420,10 +510,6 @@ function enter_ingame()
 			end
 		end
 	end
-end
-
-function exit_ingame()
-	printh("exit_ingame")
 end
 
 phase_ingame.draw=draw_ingame
@@ -501,7 +587,7 @@ function map_set_player_to_start()
 			end
 		end
 	end
-	player_index=add_droid(player_x,player_y,update_player)
+	player_index=add_droid(player_x,player_y,1,update_player)
 end
 
 map_to_sprite={
@@ -512,6 +598,7 @@ map_to_sprite={
 }
 
 function build_map(map_num)
+	clear_doors()
 	-- clear the map
 	map_set_area(map_main_xmin,map_main_ymin,map_main_xmax,map_main_ymax,sprite_clear)
 	map_data = maps[map_num]
@@ -523,7 +610,15 @@ function build_map(map_num)
 	end
 
 	map_autogen_walls()
+	-- TODO: This needs better logic behind it... player start set should only happen at game start
 	map_set_player_to_start()
+end
+
+function set_current_floor(new_floor)
+	printh("set_current_floor " .. new_floor)
+	exit_floor()
+	enter_floor(new_floor)
+	floor_current=new_floor
 end
 
 function set_current_phase(newphase)
@@ -536,6 +631,8 @@ function set_current_phase(newphase)
 end
 
 function _init()
+	printh("--------------------------INIT-----------------------")
+	mouse_set_mouse(1)
 	cls()
 	-- init all phases
 	phase_splash.init()
@@ -607,6 +704,7 @@ function update_camera(x,y)
 end
 
 function _update()
+	mouse_update()
 	toggle_each_frame=not toggle_each_frame
 	phase_current.update()
 	camera(camera_x,camera_y)
@@ -625,8 +723,55 @@ function _draw()
 	phase_current.draw()
 	draw_debug()
 end
--->8
-// second tab
+-->8 // mouse functions
+
+mouse_last_primary=0
+mouse_last_secondary=0
+mouse_primary=0
+mouse_secondary=0
+
+function mouse_set_mouse(state)
+	poke(0x5F2D, state)
+end
+
+function mouse_update()
+	mouse_last_primary=mouse_primary
+	mouse_last_secondary=mouse_secondary
+	if band(stat(34),0x01) != 0 then
+		mouse_primary=true
+	else
+		mouse_primary=false
+	end
+	if band(stat(35),0x02) != 0 then
+		mouse_secondary=true
+	else
+		mouse_secondary=false
+	end
+end
+
+function mouse_get_primary_down()
+	return mouse_primary and not mouse_last_primary
+end
+
+function mouse_get_primary()
+	return mouse_primary
+end
+
+function mouse_get_primary_up()
+	return mouse_last_primary and not mouse_primary
+end
+
+function mouse_get_secondary_down()
+	return mouse_secondary and not mouse_last_secondary
+end
+
+function mouse_get_secondary()
+	return mousesecondary_
+end
+
+function mouse_get_secondary_up()
+	return mouse_last_secondary and not mouse_secondary
+end
 __gfx__
 00000000777777767666666567777777677777767777777776666665766666676777777777777776766666657777777776666665766666677666666700000000
 00000000666666657666666576666666766666656666666676666665766666667666666666666665666666656666666666666665666666667666666600000000
