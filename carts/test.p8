@@ -7,7 +7,21 @@ __lua__
 #include constants.lua
 #include vec3.lua
 
+a=vec3.new(1,2,3)
+b=vec3.new(2,4,6)
+
 function _init()
+ print("a=" .. vec3_tostring(a))
+ print("b=" .. vec3_tostring(b))
+ sum=a+b
+ print("sum=" .. vec3_tostring(sum))
+ dif=a-b
+ print("dif=" .. vec3_tostring(dif))
+ dot=a/b
+ print("dot=" .. dot)
+ cross = a*b
+ print("cross=" .. vec3_tostring(cross))
+ 
 end
 
 function _update()

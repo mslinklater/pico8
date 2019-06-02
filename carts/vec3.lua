@@ -6,13 +6,29 @@ function vec3.add(a, b)
 	return vec3.new(a.x+b.x, a.y+b.y, a.z+b.z)
 end
 
+function vec3.sub(a, b)
+	return vec3.new(a.x-b.x, a.y-b.y, a.z-b.z)
+end
+
 function vec3_tostring( a )
 	return ("{" .. a.x .. "," .. a.y .. "," .. a.z .. "}")
 end
 
+
+function vec3.dot(a, b)
+	return a.x * b.x + a.y * b.y + a.z * b.z
+end
+
+function vec3.cross(a,b)
+	return vec3.new(a.y*b.z-a.z*b.y, a.z*b.x+a.x*b.z, a.x*b.y+a.y*b.x)
+end
+
 vec3.mt = {
 	__index = vec3,
-	__add = vec3.add
+	__add = vec3.add,
+	__sub = vec3.sub,
+	__mul = vec3.cross,
+	__div = vec3.dot
 }
 
 function vec3.new(x,y,z)
