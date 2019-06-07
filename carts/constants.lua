@@ -15,3 +15,11 @@ col_blue=12
 col_indigo=13
 col_pink=14
 col_peach=15
+
+-- buttons
+btn_left=0
+btn_right=1
+btn_up=2
+btn_down=3
+btn_o=4
+btn_x=5
