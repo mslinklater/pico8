@@ -1,7 +1,8 @@
 iReadBuf=1
-iWriteBuf=2
+WriteBuf=2
 
 function doinit()
+	-- setup and clear the play area
 	grid = {}
 	for buffer=1,2 do
 		buffertable={}
@@ -14,6 +15,11 @@ function doinit()
 		end
 		grid[buffer]=buffertable
 	end
+
+	-- create some default objects
+
+	grid[1][5][5]=tile_source_up
+	grid[2][5][5]=tile_source_up
 end
 
 function doupdate()
